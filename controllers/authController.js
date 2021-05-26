@@ -1,6 +1,7 @@
 const { compare, hash } = require('bcryptjs');
 const { sign } = require('jsonwebtoken');
 const UserDB = require('../models/User');
+const DictionaryDB = require('../models/Dictionary');
 
 exports.signUp = async (req, res, next) => {
     try {
@@ -35,9 +36,29 @@ exports.login = async (req, res, next) => {
         if (!comparePassword)
             return res
                 .status(400)
-                .send({ message: "Email or password doesn't match'" });
+                .send({ message: "Email or password doesn't match" });
         const token = sign({ _id: findEmail._id }, process.env.TOKEN_SECRET);
         res.header('auth-token', token).send({ token: token });
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+};
+
+exports.adminCreateDictionary = async (req, res, next) => {
+    try {
+        const adminId = await UserDB.findById(req.userData);
+        if (adminId.role === 'admin') {
+            const { word, meaning } = req.body;
+            const dictionary = new DictionaryDB.create({
+                word: word,
+                meaning: meaning,
+            });
+            return res
+                .status(201)
+                .send({ message: 'Word added in Dictionary' });
+        } else {
+            return res.status(403).send({ message: 'Unauthorized' });
+        }
     } catch (error) {
         res.status(500).send({ message: error.message });
     }
