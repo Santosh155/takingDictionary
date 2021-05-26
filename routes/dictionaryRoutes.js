@@ -7,7 +7,7 @@ const protect = require('../middlewares/authMiddlewares');
 
 const router = express.Router();
 
-router.post('/admin/createDictionary', protect, adminCreateDictionary);
+router.post('/dictionaryAdd', protect, adminCreateDictionary);
 router.get('/getWord', dictionary);
 
 module.exports = router;
