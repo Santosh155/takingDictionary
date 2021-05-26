@@ -12,6 +12,7 @@ services:
             - NODE_ENV=development
             - MONGO_USER=santosh
             - MONGO_PASSWORD=mypass
+            - TOKEN_SECRET=thisissecrettokenkeydfsdfadadsecret
         command: npm run dev
 
     mongo:
