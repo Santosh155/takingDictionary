@@ -11,6 +11,7 @@ const {
 const userAuth = require('./routes/userRoutes');
 
 const app = express();
+app.use(express.json());
 
 const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`;
 

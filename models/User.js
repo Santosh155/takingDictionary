@@ -5,7 +5,8 @@ const userSchema = new Schema({
     email: { type: String, required: [true, 'Email is required'] },
     password: { type: String, required: [true, 'Password is required'] },
     address: String,
-    date: { type: Date, default: date.now() },
+    role: { type: String, enum: ['admin', 'user'] },
+    date: { type: Date, default: Date.now },
 });
 
 const User = model('User', userSchema);

@@ -15,6 +15,7 @@ exports.signUp = async (req, res) => {
             email: email,
             password: hashedPassword,
             address: address,
+            role: 'user',
         });
         res.status(201).send({ message: 'User created' });
     } catch (error) {
