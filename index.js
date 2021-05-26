@@ -36,7 +36,7 @@ connectWithRetry();
 const PORT = process.env.PORT;
 
 app.use('/api/v1', userAuth);
-app.use('/api/v1/dictionary', userAuth);
+app.use('/api/v1/dictionary', dictionary);
 
 app.listen(PORT, () => {
     console.log(`Listerning on port ${PORT}`);

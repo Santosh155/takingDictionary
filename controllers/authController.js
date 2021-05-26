@@ -1,7 +1,6 @@
 const { compare, hash } = require('bcryptjs');
 const { sign } = require('jsonwebtoken');
 const UserDB = require('../models/User');
-const DictionaryDB = require('../models/Dictionary');
 
 exports.signUp = async (req, res, next) => {
     try {

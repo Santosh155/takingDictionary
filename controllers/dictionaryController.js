@@ -7,7 +7,7 @@ exports.adminCreateDictionary = async (req, res, next) => {
         const adminId = await UserDB.findById(req.userData);
         if (adminId.role === 'admin') {
             const { word, meaning } = req.body;
-            const dictionary = new DictionaryDB.create({
+            const dictionary = await DictionaryDB.create({
                 word: word,
                 meaning: meaning,
             });
@@ -22,9 +22,12 @@ exports.adminCreateDictionary = async (req, res, next) => {
     }
 };
 
+// Get words from dictionary
 exports.dictionary = async (req, res, next) => {
     try {
-        return;
+        const dictionary = await DictionaryDB.findOne({ word: req.query.word });
+        console.log(dictionary);
+        res.status(200).send({ meaning: dictionary.meaning });
     } catch (error) {
         res.status(500).send({ message: error.message });
     }
