@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <div className="footer">
+        <div className="container footer">
             &copy; {new Date().getFullYear()} Santosh Khadka
         </div>
     );

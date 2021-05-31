@@ -8,7 +8,6 @@ const Dictionary = () => {
                     placeholder="Enter words"
                     className="dictionary"
                 />
-                <input type="button" />
             </form>
         </div>
     );

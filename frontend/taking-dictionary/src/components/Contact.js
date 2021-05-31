@@ -1,6 +1,6 @@
 const Contact = () => {
     return (
-        <div>
+        <div className="container">
             <form method="get">
                 Name: <input type="text" /> <br />
                 Email: <input type="email" /> <br />
