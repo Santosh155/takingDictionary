@@ -4,6 +4,8 @@ import Footer from './components/Footer';
 import Dictionary from './components/Dictionary';
 import About from './components/About';
 import Contact from './components/Contact';
+import Login from './components/Login';
+import Signup from './components/Signup';
 
 function App() {
     return (
@@ -13,6 +15,8 @@ function App() {
                 <Dictionary />
                 <Route path="/about" component={About} />
                 <Route path="/contact" component={Contact} />
+                <Route path="/login" component={Login} />
+                <Route path="/register" component={Signup} />
                 <Footer />
             </div>
         </Router>
