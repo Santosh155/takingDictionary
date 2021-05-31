@@ -13,7 +13,15 @@ function App() {
         <Router>
             <div className="App">
                 <Header />
-                <Dictionary />
+                <Route
+                    path="/"
+                    exact
+                    render={(props) => (
+                        <>
+                            <Dictionary />
+                        </>
+                    )}
+                />
                 <Route path="/about" component={About} />
                 <Route path="/contact" component={Contact} />
                 <Route path="/login" component={Login} />

@@ -1,7 +1,7 @@
 // import 'bootstrap/dist/css/bootstrap.min.css';
 const Login = () => {
     return (
-        <div className="container" style={{ width: '40%' }}>
+        <div className="container" style={{ width: '40%', marginTop: '40px' }}>
             <form method="post">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">
