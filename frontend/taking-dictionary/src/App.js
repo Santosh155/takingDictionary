@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -9,6 +10,16 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 
 function App() {
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await fetch(
+                'http://localhost:5000/api/v1/dictionary/getWord'
+            );
+            const data = await res.json();
+            console.log(data);
+        };
+        fetchData();
+    }, []);
     return (
         <Router>
             <div className="App">

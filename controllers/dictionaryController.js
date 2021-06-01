@@ -25,9 +25,11 @@ exports.adminCreateDictionary = async (req, res, next) => {
 // Get words from dictionary
 exports.dictionary = async (req, res, next) => {
     try {
-        const dictionary = await DictionaryDB.findOne({ word: req.query.word });
+        const dictionary = await DictionaryDB.find()
+            .select('word meaning')
+            .exec();
         console.log(dictionary);
-        res.status(200).send({ meaning: dictionary.meaning });
+        res.status(200).send({ meaning: dictionary });
     } catch (error) {
         res.status(500).send({ message: error.message });
     }
