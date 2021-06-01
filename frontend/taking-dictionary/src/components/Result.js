@@ -1,8 +1,9 @@
 const Result = ({ word }) => {
     return (
         <div>
-            {console.log(word)}
-            <p className="text-center">{word}</p>
+            {word.map((w) => (
+                <p className="text-center">{w}</p>
+            ))}
         </div>
     );
 };

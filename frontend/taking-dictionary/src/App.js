@@ -41,15 +41,13 @@ function App() {
 
             const data = await res.json();
             const arr = data.meaning.meaning;
-            console.log(typeof data);
-            setWords(arr);
+            setWords([word.dictionary, arr]);
             // console.log(data.meaning);
             return data.meaning;
         } else {
             return;
         }
     };
-    console.log(words);
     return (
         <Router>
             <div className="App">
