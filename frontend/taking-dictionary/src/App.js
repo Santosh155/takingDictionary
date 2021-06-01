@@ -58,7 +58,7 @@ function App() {
                     render={() => (
                         <>
                             <Dictionary word={word} />
-                            {words !== undefined ? (
+                            {words.length !== 0 ? (
                                 <Result word={words} />
                             ) : (
                                 'Enter words to find meaning'
