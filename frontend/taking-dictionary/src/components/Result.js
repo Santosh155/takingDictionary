@@ -1,8 +1,10 @@
 const Result = ({ word }) => {
     return (
         <div>
-            {word.map((w) => (
-                <p className="text-center">{w}</p>
+            {word.map((w, k) => (
+                <p className="text-center" key={k}>
+                    {w}
+                </p>
             ))}
         </div>
     );
