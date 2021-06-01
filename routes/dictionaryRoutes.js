@@ -8,6 +8,6 @@ const protect = require('../middlewares/authMiddlewares');
 const router = express.Router();
 
 router.post('/dictionaryAdd', protect, adminCreateDictionary);
-router.get('/getWord', dictionary);
+router.get('/getWord/:word', dictionary);
 
 module.exports = router;

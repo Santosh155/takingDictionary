@@ -8,18 +8,41 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import Result from './components/Result';
 
 function App() {
+    const [words, setWords] = useState([]);
+    // const [word, setWord] = useState([]);
     useEffect(() => {
-        const fetchData = async () => {
-            const res = await fetch(
-                'http://localhost:5000/api/v1/dictionary/getWord'
-            );
-            const data = await res.json();
-            console.log(data);
+        const getMeaning = async () => {
+            const meaningFromServer = await word();
+            setWords(meaningFromServer);
         };
-        fetchData();
+        getMeaning();
     }, []);
+    // fetch data
+    // const fetchData = async () => {
+    //     const res = await fetch(
+    //         'http://localhost:5000/api/v1/dictionary/getWord'
+    //     );
+    //     const data = await res.json();
+    //     return data.meaning;
+    // };
+    const word = async (word) => {
+        // const test = word.dictionary;
+        // console.log(word.length);
+        if (word !== undefined) {
+            const res = await fetch(
+                `http://localhost:5000/api/v1/dictionary/getWord/${word.dictionary}`
+            );
+
+            const data = await res.json();
+            console.log(data.meaning);
+            return data.meaning;
+        } else {
+            return;
+        }
+    };
     return (
         <Router>
             <div className="App">
@@ -29,7 +52,12 @@ function App() {
                     exact
                     render={(props) => (
                         <>
-                            <Dictionary />
+                            <Dictionary word={word} />
+                            {words !== undefined ? (
+                                <Result word={words} />
+                            ) : (
+                                'Enter words to find meaning'
+                            )}
                         </>
                     )}
                 />
