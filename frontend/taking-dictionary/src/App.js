@@ -13,13 +13,16 @@ import Result from './components/Result';
 function App() {
     const [words, setWords] = useState([]);
     // const [word, setWord] = useState([]);
-    useEffect(() => {
-        const getMeaning = async () => {
-            const meaningFromServer = await word();
-            setWords(meaningFromServer);
-        };
-        getMeaning();
-    }, []);
+
+    // useEffect(() => {
+    //     const getMeaning = async () => {
+    //         const meaningFromServer = await word();
+    //         console.log(meaningFromServer);
+    //         setWords(meaningFromServer);
+    //     };
+    //     getMeaning();
+    // }, []);
+
     // fetch data
     // const fetchData = async () => {
     //     const res = await fetch(
@@ -37,12 +40,16 @@ function App() {
             );
 
             const data = await res.json();
-            console.log(data.meaning);
+            const arr = data.meaning.meaning;
+            console.log(typeof data);
+            setWords(arr);
+            // console.log(data.meaning);
             return data.meaning;
         } else {
             return;
         }
     };
+    console.log(words);
     return (
         <Router>
             <div className="App">
@@ -50,7 +57,7 @@ function App() {
                 <Route
                     path="/"
                     exact
-                    render={(props) => (
+                    render={() => (
                         <>
                             <Dictionary word={word} />
                             {words !== undefined ? (
