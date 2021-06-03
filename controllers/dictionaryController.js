@@ -25,11 +25,12 @@ exports.adminCreateDictionary = async (req, res, next) => {
 // Get words from dictionary
 exports.dictionary = async (req, res, next) => {
     try {
-        console.log(req.params.word);
         const dictionary = await DictionaryDB.findOne({
             word: req.params.word,
         });
-        console.log(dictionary);
+        if(dictionary === null){
+            return res.status(400).send({meaning: 'Sorry, no word found'})
+        }
         res.status(200).send({ meaning: dictionary });
     } catch (error) {
         res.status(500).send({ message: error.message });
