@@ -6,6 +6,7 @@ const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [address, setAddress] = useState('');
+    const [error, setError] = useState('');
 
     const Register = (e) => {
         e.preventDefault();
@@ -14,12 +15,21 @@ const Signup = () => {
             email: email,
             password: password,
             address: address,
-        }).then((e) => {
-            console.log(e);
-        });
+        })
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((err) => {
+                setError(err.response.data.message);
+            });
     };
     return (
         <div className="container" style={{ width: '40%', marginTop: '40px' }}>
+            {error ? (
+                <p className="alert alert-danger" role="alert">
+                    {error}
+                </p>
+            ) : null}
             <form onSubmit={Register}>
                 <div className="mb-3">
                     <label className="form-label">Full Name</label>
@@ -30,6 +40,7 @@ const Signup = () => {
                         onChange={(e) => {
                             setName(e.target.value);
                         }}
+                        required
                     />
                 </div>
                 <div className="mb-3">
@@ -41,6 +52,7 @@ const Signup = () => {
                         onChange={(e) => {
                             setAddress(e.target.value);
                         }}
+                        required
                     />
                 </div>
                 <div className="mb-3">
@@ -52,6 +64,7 @@ const Signup = () => {
                         onChange={(e) => {
                             setEmail(e.target.value);
                         }}
+                        required
                     />
                 </div>
                 <div className="mb-3">
@@ -63,6 +76,7 @@ const Signup = () => {
                         onChange={(e) => {
                             setPassword(e.target.value);
                         }}
+                        required
                     />
                 </div>
                 <button type="submit" className="btn btn-primary">
