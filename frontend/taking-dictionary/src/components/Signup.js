@@ -1,52 +1,71 @@
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
+import Axios from 'axios';
+
 const Signup = () => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [address, setAddress] = useState('');
+
+    const Register = (e) => {
+        e.preventDefault();
+        Axios.post('http://localhost:5000/api/v1/register', {
+            name: name,
+            email: email,
+            password: password,
+            address: address,
+        }).then((e) => {
+            console.log(e);
+        });
+    };
     return (
         <div className="container" style={{ width: '40%', marginTop: '40px' }}>
-            <form method="post">
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">
-                        Full Name
-                    </label>
+            <form onSubmit={Register}>
+                <div className="mb-3">
+                    <label className="form-label">Full Name</label>
                     <input
                         type="text"
-                        class="form-control"
-                        id="exampleInputEmail1"
+                        className="form-control"
                         aria-describedby="emailHelp"
+                        onChange={(e) => {
+                            setName(e.target.value);
+                        }}
                     />
                 </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">
-                        Current Address
-                    </label>
+                <div className="mb-3">
+                    <label className="form-label">Current Address</label>
                     <input
                         type="text"
-                        class="form-control"
-                        id="exampleInputEmail1"
+                        className="form-control"
                         aria-describedby="emailHelp"
+                        onChange={(e) => {
+                            setAddress(e.target.value);
+                        }}
                     />
                 </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">
-                        Email address
-                    </label>
+                <div className="mb-3">
+                    <label className="form-label">Email address</label>
                     <input
                         type="email"
-                        class="form-control"
-                        id="exampleInputEmail1"
+                        className="form-control"
                         aria-describedby="emailHelp"
+                        onChange={(e) => {
+                            setEmail(e.target.value);
+                        }}
                     />
                 </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">
-                        Password
-                    </label>
+                <div className="mb-3">
+                    <label className="form-label">Password</label>
                     <input
                         type="password"
-                        class="form-control"
+                        className="form-control"
                         id="exampleInputPassword1"
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                        }}
                     />
                 </div>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" className="btn btn-primary">
                     Submit
                 </button>
             </form>
