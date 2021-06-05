@@ -1,13 +1,10 @@
-const Result = ({ word }) => {
+const Result = ({ meaning }) => {
     return (
-        <div>
-            {/* {word.map((w, k) => (
-                <p className="text-center" key={k}>
-                    {w}
-                </p>
-            ))} */}
-            <h3 className="container">{word[0]} meaning is</h3>
-            <p className="container">{word[1]}</p>
+        <div style={{ textAlign: 'left', marginTop: '20px' }}>
+            <h4 className="container">
+                <strong>{meaning.word}</strong>: meaning is
+            </h4>
+            <p className="container">{meaning.meaning}</p>
         </div>
     );
 };

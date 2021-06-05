@@ -28,8 +28,8 @@ exports.dictionary = async (req, res, next) => {
         const dictionary = await DictionaryDB.findOne({
             word: req.params.word,
         });
-        if(dictionary === null){
-            return res.status(400).send({meaning: 'Sorry, no word found'})
+        if (dictionary === null) {
+            return res.status(400).send({ message: 'Sorry, no word found' });
         }
         res.status(200).send({ meaning: dictionary });
     } catch (error) {
