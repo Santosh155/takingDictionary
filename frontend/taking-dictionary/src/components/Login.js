@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import Axios from 'axios';
 
 const Login = () => {
@@ -9,6 +10,7 @@ const Login = () => {
         const localData = localStorage.getItem('token');
         return localData ? JSON.parse(localData) : '';
     });
+    const [isLoggedIn, setLogin] = useState(false);
 
     useEffect(() => {
         localStorage.setItem('token', JSON.stringify(token));
@@ -21,11 +23,16 @@ const Login = () => {
         })
             .then((response) => {
                 setToken(response.data.token);
+                setLogin(true);
             })
             .catch((err) => {
                 setError(err.response.data.message);
             });
     };
+    if (isLoggedIn) {
+        console.log('Redirecting..');
+        return <Redirect to="/dashboard/" />;
+    }
     return (
         <div className="container" style={{ width: '40%', marginTop: '40px' }}>
             {error ? (
