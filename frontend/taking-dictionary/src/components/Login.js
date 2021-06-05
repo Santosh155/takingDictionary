@@ -1,11 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Axios from 'axios';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [token, setToken] = useState(() => {
+        const localData = localStorage.getItem('token');
+        return localData ? JSON.parse(localData) : '';
+    });
 
+    useEffect(() => {
+        localStorage.setItem('token', JSON.stringify(token));
+    }, [token]);
     const Login = (e) => {
         e.preventDefault();
         Axios.post('http://localhost:5000/api/v1/login', {
@@ -13,7 +20,7 @@ const Login = () => {
             password: password,
         })
             .then((response) => {
-                console.log(response.data.token);
+                setToken(response.data.token);
             })
             .catch((err) => {
                 setError(err.response.data.message);
