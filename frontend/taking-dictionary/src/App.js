@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
+import ProtectedRoute from './ProtectedRoute';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Dictionary from './components/Dictionary';
@@ -11,6 +13,8 @@ import Dashboard from './components/Dashboard';
 
 function App() {
     console.log(localStorage.getItem('token'));
+    const [isAuth, setAuth] = useState(false);
+    const tokenFromStorage = localStorage.getItem('token');
     return (
         <Router>
             <div className="App">
@@ -27,7 +31,11 @@ function App() {
                 <Route path="/about" component={About} />
                 <Route path="/contact" component={Contact} />
                 <Route path="/login" component={Login} />
-                <Route path="/dashboard" component={Dashboard} />
+                <ProtectedRoute
+                    path="/dashboard"
+                    component={Dashboard}
+                    isAuth={isAuth}
+                />
                 <Route path="/register" component={Signup} />
                 <Footer />
             </div>

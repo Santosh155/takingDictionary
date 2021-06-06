@@ -1,3 +1,5 @@
+import { withRouter } from 'react-router-dom';
+
 const Dashboard = () => {
     return (
         <div>
@@ -6,4 +8,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default withRouter(Dashboard);
