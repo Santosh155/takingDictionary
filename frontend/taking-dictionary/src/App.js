@@ -13,8 +13,15 @@ import Profile from './components/Profile';
 
 function App() {
     console.log(localStorage.getItem('token'));
-    const [isAuth, setAuth] = useState(true);
-    const tokenFromStorage = localStorage.getItem('token');
+    const [isAuth] = useState(() => {
+        const tokenFromStorage = JSON.parse(localStorage.getItem('token'));
+        if (tokenFromStorage !== null && tokenFromStorage.length >= 10) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+    console.log(isAuth);
     return (
         <Router>
             <div className="App">
