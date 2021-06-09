@@ -5,6 +5,7 @@ import Axios from 'axios';
 const Dashboard = () => {
     const apiUrl = 'http://localhost:5000/api/v1/dictionary/user';
     const [user, setUser] = useState([]);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem('token'));
@@ -15,17 +16,21 @@ const Dashboard = () => {
         Axios.get(apiUrl, { headers })
             .then((response) => {
                 setUser(response.data.message);
-                console.log(response.data.message);
             })
             .catch((err) => {
-                console.log(err);
+                setError(err.response.data.message);
             });
     }, []);
     return (
-        <div className="container">
-            <p>{user.name}</p>
-            <p>{user.email}</p>
-            <p>{user.address}</p>
+        <div className="container mt-5 mb-5">
+            {error ? (
+                <p className="alert alert-danger" role="alert">
+                    {error}
+                </p>
+            ) : null}
+            <p>Name: {user.name}</p>
+            <p>Email: {user.email}</p>
+            <p>Address: {user.address}</p>
         </div>
     );
 };
