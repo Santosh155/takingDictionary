@@ -36,3 +36,17 @@ exports.dictionary = async (req, res, next) => {
         res.status(500).send({ message: error.message });
     }
 };
+
+//get user data
+exports.user = async (req, res, next) => {
+    try {
+        const dictionary = await UserDB.findById(req.userData);
+        if (dictionary.role === 'user') {
+            return res.status(200).send({ message: dictionary });
+        } else {
+            return res.status(200).send({ message: dictionary });
+        }
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+};

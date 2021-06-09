@@ -13,7 +13,7 @@ import Dashboard from './components/Dashboard';
 
 function App() {
     console.log(localStorage.getItem('token'));
-    const [isAuth, setAuth] = useState(false);
+    const [isAuth, setAuth] = useState(true);
     const tokenFromStorage = localStorage.getItem('token');
     return (
         <Router>
