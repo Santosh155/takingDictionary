@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ isAuth }) => {
+    let logout, login, register;
+    if (isAuth) {
+        logout = <Link to="/logout">LogOut</Link>;
+    } else {
+        login = <Link to="/login">Login</Link>;
+        register = <Link to="/register">Signup</Link>;
+    }
     return (
         <header className="header">
             <div>
@@ -9,8 +16,8 @@ const Header = () => {
                 <Link to="/contact">Contact</Link>
             </div>
             <div>
-                <Link to="/login">Login</Link>
-                <Link to="/register">Signup</Link>
+                {logout}
+                {(login, register)}
                 <Link to="#">Saved Words</Link>
             </div>
         </header>

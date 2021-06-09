@@ -25,7 +25,7 @@ function App() {
     return (
         <Router>
             <div className="App">
-                <Header />
+                <Header isAuth={isAuth} />
                 <Route
                     path="/"
                     exact
