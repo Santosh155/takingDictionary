@@ -31,7 +31,7 @@ const Login = () => {
     };
     if (isLoggedIn) {
         console.log('Redirecting..');
-        return <Redirect to="/dashboard/" />;
+        return <Redirect to="/profile/" />;
     }
     return (
         <div className="container" style={{ width: '40%', marginTop: '40px' }}>

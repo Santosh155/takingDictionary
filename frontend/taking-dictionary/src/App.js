@@ -9,7 +9,7 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import Dashboard from './components/Dashboard';
+import Profile from './components/Profile';
 
 function App() {
     console.log(localStorage.getItem('token'));
@@ -32,8 +32,8 @@ function App() {
                 <Route path="/contact" component={Contact} />
                 <Route path="/login" component={Login} />
                 <ProtectedRoute
-                    path="/dashboard"
-                    component={Dashboard}
+                    path="/profile"
+                    component={Profile}
                     isAuth={isAuth}
                 />
                 <Route path="/register" component={Signup} />

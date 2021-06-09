@@ -22,9 +22,10 @@ const Dashboard = () => {
             });
     }, []);
     return (
-        <div>
-            {user[1]}
-            <h1>this is user dashboard</h1>
+        <div className="container">
+            <p>{user.name}</p>
+            <p>{user.email}</p>
+            <p>{user.address}</p>
         </div>
     );
 };
