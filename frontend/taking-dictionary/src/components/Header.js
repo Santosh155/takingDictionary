@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom';
 
 const Header = ({ isAuth }) => {
-    let logout, login, register;
-    if (isAuth) {
-        logout = <Link to="/logout">LogOut</Link>;
-    } else {
-        login = <Link to="/login">Login</Link>;
-        register = <Link to="/register">Signup</Link>;
-    }
+    const logoutFunc = () => {
+        localStorage.clear();
+        window.location.assign('/login');
+    };
+
     return (
         <header className="header">
             <div>
@@ -16,8 +14,19 @@ const Header = ({ isAuth }) => {
                 <Link to="/contact">Contact</Link>
             </div>
             <div>
-                {logout}
-                {(login, register)}
+                {isAuth ? (
+                    <>
+                        <Link to="/logout" onClick={logoutFunc}>
+                            LogOut
+                        </Link>{' '}
+                        <Link to="/profile">Profile</Link>{' '}
+                    </>
+                ) : (
+                    <>
+                        <Link to="/login">Login</Link>;
+                        <Link to="/register">Signup</Link>;
+                    </>
+                )}
                 <Link to="#">Saved Words</Link>
             </div>
         </header>

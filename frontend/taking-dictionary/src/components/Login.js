@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
 import Axios from 'axios';
 
 const Login = () => {
@@ -24,6 +23,7 @@ const Login = () => {
             .then((response) => {
                 setToken(response.data.token);
                 setLogin(true);
+                window.location.assign('/profile');
             })
             .catch((err) => {
                 setError(err.response.data.message);
@@ -31,7 +31,7 @@ const Login = () => {
     };
     if (isLoggedIn) {
         console.log('Redirecting..');
-        return <Redirect to="/profile/" />;
+        return window.location.assign('/profile');
     }
     return (
         <div className="container" style={{ width: '40%', marginTop: '40px' }}>

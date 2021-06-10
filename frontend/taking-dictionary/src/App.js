@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import ProtectedRoute from './ProtectedRoute';
@@ -37,13 +37,19 @@ function App() {
                 />
                 <Route path="/about" component={About} />
                 <Route path="/contact" component={Contact} />
-                <Route path="/login" component={Login} />
+                {isAuth ? (
+                    <Redirect to="/profile" />
+                ) : (
+                    <>
+                        <Route path="/login" component={Login} />
+                        <Route path="/register" component={Signup} />
+                    </>
+                )}
                 <ProtectedRoute
                     path="/profile"
                     component={Profile}
                     isAuth={isAuth}
                 />
-                <Route path="/register" component={Signup} />
                 <Footer />
             </div>
         </Router>
