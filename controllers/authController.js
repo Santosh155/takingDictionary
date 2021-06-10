@@ -65,7 +65,27 @@ exports.userUpdate = async (req, res, next) => {
             { _id: userInfo._id },
             { $set: { name: req.body.name, address: req.body.address } }
         );
-        res.send({ message: 'User updated successfully' });
+        res.status(200).send({ message: 'User updated successfully' });
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+};
+
+// Update password
+exports.updatePassword = async (req, res, next) => {
+    try {
+        const userInfo = await UserDB.findById(req.userData);
+        const { oldPassword, newPassword } = req.body;
+        const comparePassword = await compare(oldPassword, userInfo.password);
+        if (!comparePassword) {
+            return res.status(400).send({ message: "Password doesn't match" });
+        }
+        const hashedPassword = await hash(newPassword, 12);
+        await UserDB.updateOne(
+            { _id: userInfo._id },
+            { $set: { password: hashedPassword } }
+        );
+        res.status(200).send({ message: 'Password updated' });
     } catch (error) {
         res.status(500).send({ message: error.message });
     }
