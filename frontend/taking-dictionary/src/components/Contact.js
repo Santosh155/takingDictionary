@@ -6,6 +6,8 @@ const Contact = () => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [showMessage, setShowMessage] = useState('');
+    const [error, setError] = useState('');
+
     const contact = (e) => {
         e.preventDefault();
         Axios.post('http://localhost:5000/api/v1/contact', {
@@ -17,6 +19,7 @@ const Contact = () => {
                 setShowMessage(response.data.message);
             })
             .catch((err) => {
+                setError(err.response.data.message)
                 console.log(err);
             });
     };
@@ -25,6 +28,11 @@ const Contact = () => {
             {showMessage ? (
                 <p className="alert alert-primary" role="alert">
                     {showMessage}
+                </p>
+            ) : null}
+            {error ? (
+                <p className="alert alert-primary" role="alert">
+                    {error}
                 </p>
             ) : null}
             <form method="post" onSubmit={contact}>
