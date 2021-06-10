@@ -42,3 +42,31 @@ exports.login = async (req, res, next) => {
         res.status(500).send({ message: error.message });
     }
 };
+
+//get user data
+exports.user = async (req, res, next) => {
+    try {
+        const userInfo = await UserDB.findById(req.userData);
+        if (userInfo.role === 'user') {
+            return res.status(200).send({ message: userInfo });
+        } else {
+            return res.status(200).send({ message: userInfo });
+        }
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+};
+
+// Edit user data
+exports.userUpdate = async (req, res, next) => {
+    try {
+        const userInfo = await UserDB.findById(req.userData);
+        await UserDB.updateOne(
+            { _id: userInfo._id },
+            { $set: { name: req.body.name, address: req.body.address } }
+        );
+        res.send({ message: 'User updated successfully' });
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+};

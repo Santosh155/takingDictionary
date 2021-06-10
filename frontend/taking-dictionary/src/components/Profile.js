@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Axios from 'axios';
 
 const Dashboard = () => {
-    const apiUrl = 'http://localhost:5000/api/v1/dictionary/user';
+    const apiUrl = 'http://localhost:5000/api/v1/user';
     const [user, setUser] = useState([]);
     const [error, setError] = useState('');
 
