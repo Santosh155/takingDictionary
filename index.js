@@ -11,6 +11,7 @@ const {
 
 const userAuth = require('./routes/userRoutes');
 const dictionary = require('./routes/dictionaryRoutes');
+const contact = require('./routes/contact');
 
 const app = express();
 app.use(express.json());
@@ -38,6 +39,7 @@ const PORT = process.env.PORT;
 
 app.use('/api/v1', userAuth);
 app.use('/api/v1/dictionary', dictionary);
+app.use('/api/v1/contact', contact);
 
 app.listen(PORT, () => {
     console.log(`Listerning on port ${PORT}`);
