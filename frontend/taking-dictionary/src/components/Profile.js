@@ -28,9 +28,65 @@ const Dashboard = () => {
                     {error}
                 </p>
             ) : null}
-            <p>Name: {user.name}</p>
+            {/* <p>Name: {user.name}</p>
             <p>Email: {user.email}</p>
-            <p>Address: {user.address}</p>
+            <p>Address: {user.address}</p> */}
+            <form>
+                <div className="mb-3">
+                    <label className="form-label">Full Name</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        aria-describedby="emailHelp"
+                        onChange={(e) => {
+                            setUser(e.target.value);
+                        }}
+                        value={user.name}
+                        required
+                    />
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Current Address</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        aria-describedby="emailHelp"
+                        // onChange={(e) => {
+                        //     setAddress(e.target.value);
+                        // }}
+                        // value={user.address}
+                        required
+                    />
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Email address</label>
+                    <input
+                        type="email"
+                        className="form-control"
+                        aria-describedby="emailHelp"
+                        // onChange={(e) => {
+                        //     setEmail(e.target.value);
+                        // }}
+                        // value={user.email}
+                        required
+                    />
+                </div>
+                {/* <div className="mb-3">
+                    <label className="form-label">Password</label>
+                    <input
+                        type="password"
+                        className="form-control"
+                        id="exampleInputPassword1"
+                        // onChange={(e) => {
+                        //     setPassword(e.target.value);
+                        // }}
+                        required
+                    />
+                </div> */}
+                <button type="submit" className="btn btn-primary">
+                    Submit
+                </button>
+            </form>
         </div>
     );
 };
