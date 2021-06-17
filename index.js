@@ -35,6 +35,9 @@ const connectWithRetry = () => {
 };
 
 connectWithRetry();
+
+app.enable('trust proxy');
+
 const PORT = process.env.PORT;
 
 app.use('/api/v1', userAuth);
