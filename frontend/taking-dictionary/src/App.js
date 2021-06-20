@@ -29,7 +29,7 @@ function App() {
                 <Route
                     path="/"
                     exact
-                    render={() => (
+                    render={(props) => (
                         <>
                             <Dictionary />
                         </>

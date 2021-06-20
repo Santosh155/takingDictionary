@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
+import { GoogleLogin } from 'react-google-login';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -33,6 +34,19 @@ const Login = () => {
         console.log('Redirecting..');
         return window.location.assign('/profile');
     }
+    const responseSuccessGoogle = (response) => {
+        console.log(response);
+        Axios({
+            method: 'POST',
+            url: 'http://localhost:5000/api/v1/googlelogin',
+            data: { tokenId: response.tokenId },
+        }).then((res) => {
+            console.log(res);
+        });
+    };
+    const responseErrorGoogle = (response) => {
+        console.log('error');
+    };
     return (
         <div className="container" style={{ width: '40%', marginTop: '40px' }}>
             {error ? (
@@ -77,6 +91,13 @@ const Login = () => {
                     Submit
                 </button>
             </form>
+            <GoogleLogin
+                clientId="771025381810-tbtrkiste2aphi9fd25dol6h6pfvd0vj.apps.googleusercontent.com"
+                buttonText="Login"
+                onSuccess={responseSuccessGoogle}
+                onFailure={responseErrorGoogle}
+                cookiePolicy={'single_host_origin'}
+            />
         </div>
     );
 };

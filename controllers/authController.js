@@ -46,7 +46,6 @@ exports.login = async (req, res, next) => {
 //get user data
 exports.user = async (req, res, next) => {
     try {
-        console.log('nginx test');
         const userInfo = await UserDB.findById(req.userData);
         if (userInfo.role === 'user') {
             return res.status(200).send({ message: userInfo });
