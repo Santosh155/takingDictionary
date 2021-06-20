@@ -40,10 +40,15 @@ const Login = () => {
             method: 'POST',
             url: 'http://localhost:5000/api/v1/googlelogin',
             data: { tokenId: response.tokenId },
-        }).then((res) => {
-            console.log(res);
-            console.log('google login success');
-        });
+        })
+            .then((result) => {
+                setToken(result.data.token);
+                setLogin(true);
+                window.location.assign('/profile');
+            })
+            .catch((err) => {
+                setError(err.response.data.message);
+            });
     };
     const responseErrorGoogle = (response) => {
         console.log('error');

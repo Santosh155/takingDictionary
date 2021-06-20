@@ -28,10 +28,10 @@ const Dashboard = () => {
                     {error}
                 </p>
             ) : null}
-            {/* <p>Name: {user.name}</p>
+            <p>Name: {user.name}</p>
             <p>Email: {user.email}</p>
-            <p>Address: {user.address}</p> */}
-            <form>
+            <p>Address: {user.address}</p>
+            {/* <form>
                 <div className="mb-3">
                     <label className="form-label">Full Name</label>
                     <input
@@ -71,7 +71,7 @@ const Dashboard = () => {
                         required
                     />
                 </div>
-                {/* <div className="mb-3">
+                <div className="mb-3">
                     <label className="form-label">Password</label>
                     <input
                         type="password"
@@ -82,11 +82,11 @@ const Dashboard = () => {
                         // }}
                         required
                     />
-                </div> */}
+                </div>
                 <button type="submit" className="btn btn-primary">
                     Submit
                 </button>
-            </form>
+            </form> */}
         </div>
     );
 };
