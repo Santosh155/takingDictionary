@@ -42,6 +42,7 @@ const Login = () => {
             data: { tokenId: response.tokenId },
         }).then((res) => {
             console.log(res);
+            console.log('google login success');
         });
     };
     const responseErrorGoogle = (response) => {

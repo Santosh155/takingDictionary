@@ -104,9 +104,47 @@ exports.googlelogin = async (req, res, next) => {
                 audience:
                     '771025381810-tbtrkiste2aphi9fd25dol6h6pfvd0vj.apps.googleusercontent.com',
             })
-            .then((response) => {
+            .then(async (response) => {
                 const { email_verified, name, email } = response.payload;
-                console.log(response.payload);
+                await UserDB.findOne({ email }).exec(async (err, user) => {
+                    if (err) {
+                        return res
+                            .status(400)
+                            .send({ message: 'Something went wrong' });
+                    } else {
+                        if (user) {
+                            const token = sign(
+                                { _id: user._id },
+                                process.env.TOKEN_SECRET
+                            );
+                            return res.header('auth-token', token).send({
+                                token: token,
+                            });
+                        } else {
+                            let password = name + 'testpassword';
+                            const hashedPassword = await hash(password, 12);
+                            let newUser = await new UserDB({
+                                name: name,
+                                password: hashedPassword,
+                                email: email,
+                                address: 'ktm',
+                            });
+                            await newUser.save((err, data) => {
+                                if (err)
+                                    return res
+                                        .status(400)
+                                        .send({ message: err.message });
+                                const token = sign(
+                                    { _id: data._id },
+                                    process.env.TOKEN_SECRET
+                                );
+                                return res.header('auth-token', token).send({
+                                    token: token,
+                                });
+                            });
+                        }
+                    }
+                });
             });
     } catch (error) {
         res.status(500).send({ message: error.message });
