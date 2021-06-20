@@ -1,7 +1,11 @@
 const { compare, hash } = require('bcryptjs');
 const { sign } = require('jsonwebtoken');
+const { OAuth2Client } = require('google-auth-library');
 const UserDB = require('../models/User');
 
+const client = new OAuth2Client(
+    '771025381810-tbtrkiste2aphi9fd25dol6h6pfvd0vj.apps.googleusercontent.com'
+);
 exports.signUp = async (req, res, next) => {
     try {
         const { name, password, address, email } = req.body;
@@ -86,6 +90,24 @@ exports.updatePassword = async (req, res, next) => {
             { $set: { password: hashedPassword } }
         );
         res.status(200).send({ message: 'Password updated' });
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+};
+
+exports.googlelogin = async (req, res, next) => {
+    try {
+        const { tokenId } = req.body;
+        client
+            .verifyIdToken({
+                idToken: tokenId,
+                audience:
+                    '771025381810-tbtrkiste2aphi9fd25dol6h6pfvd0vj.apps.googleusercontent.com',
+            })
+            .then((response) => {
+                const { email_verified, name, email } = response.payload;
+                console.log(response.payload);
+            });
     } catch (error) {
         res.status(500).send({ message: error.message });
     }
