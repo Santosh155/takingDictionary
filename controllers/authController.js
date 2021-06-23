@@ -154,6 +154,54 @@ exports.googlelogin = async (req, res, next) => {
 
 exports.facebookLogin = async (req, res, next) => {
     try {
+        const { accessToken, userID } = req.body;
+        let urlGraphFacebook = `https://graph.facebook.com/v2.11/${userID}/?fields=id,name,email&access_token=${accessToken}`;
+        fetch(urlGraphFacebook, {
+            method: 'GET',
+        })
+            .then(async (response) => response.json())
+            .then(async (response) => {
+                const { email, name } = response;
+                await UserDB.findOne({ email }).exec(async (err, user) => {
+                    if (err) {
+                        return res
+                            .status(400)
+                            .send({ message: 'Something went wrong' });
+                    } else {
+                        if (user) {
+                            const token = sign(
+                                { _id: user._id },
+                                process.env.TOKEN_SECRET
+                            );
+                            return res.header('auth-token', token).send({
+                                token: token,
+                            });
+                        } else {
+                            let password = name + 'testpassword';
+                            const hashedPassword = await hash(password, 12);
+                            let newUser = await new UserDB({
+                                name: name,
+                                password: hashedPassword,
+                                email: email,
+                                address: 'ktm',
+                            });
+                            await newUser.save((err, data) => {
+                                if (err)
+                                    return res
+                                        .status(400)
+                                        .send({ message: err.message });
+                                const token = sign(
+                                    { _id: data._id },
+                                    process.env.TOKEN_SECRET
+                                );
+                                return res.header('auth-token', token).send({
+                                    token: token,
+                                });
+                            });
+                        }
+                    }
+                });
+            });
     } catch (error) {
         res.status(500).send({ message: error.message });
     }
