@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -53,6 +54,26 @@ const Login = () => {
     const responseErrorGoogle = (response) => {
         console.log('error');
     };
+
+    const responseFacebook = (response) => {
+        console.log(response);
+        Axios({
+            method: 'POST',
+            url: 'http://localhost:5000/api/v1/facebooklogin',
+            data: {
+                accessToken: response.accessToken,
+                userID: response.userID,
+            },
+        })
+            .then((result) => {
+                setToken(result.data.token);
+                setLogin(true);
+                window.location.assign('/profile');
+            })
+            .catch((err) => {
+                setError(err.response.data.message);
+            });
+    };
     return (
         <div className="container" style={{ width: '40%', marginTop: '40px' }}>
             {error ? (
@@ -103,6 +124,11 @@ const Login = () => {
                 onSuccess={responseSuccessGoogle}
                 onFailure={responseErrorGoogle}
                 cookiePolicy={'single_host_origin'}
+            />
+            <FacebookLogin
+                appId="993868381428713"
+                autoLoad={false}
+                callback={responseFacebook}
             />
         </div>
     );

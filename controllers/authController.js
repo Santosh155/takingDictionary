@@ -2,6 +2,7 @@ const { compare, hash } = require('bcryptjs');
 const { sign } = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 const UserDB = require('../models/User');
+const fetch = require('node-fetch');
 
 const client = new OAuth2Client(
     '771025381810-tbtrkiste2aphi9fd25dol6h6pfvd0vj.apps.googleusercontent.com'
@@ -146,6 +147,13 @@ exports.googlelogin = async (req, res, next) => {
                     }
                 });
             });
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+};
+
+exports.facebookLogin = async (req, res, next) => {
+    try {
     } catch (error) {
         res.status(500).send({ message: error.message });
     }
