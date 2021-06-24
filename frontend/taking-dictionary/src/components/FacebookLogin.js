@@ -38,11 +38,15 @@ const LoginFromFacebook = () => {
                     {error}
                 </p>
             ) : null}
-            <FacebookLogin
-                appId="993868381428713"
-                autoLoad={false}
-                callback={responseFacebook}
-            />
+            <br />
+            <div>
+                <FacebookLogin
+                    appId="993868381428713"
+                    autoLoad={false}
+                    callback={responseFacebook}
+                    cssClass="my-facebook-button-class"
+                />
+            </div>
         </div>
     );
 };

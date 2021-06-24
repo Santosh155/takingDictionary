@@ -38,9 +38,10 @@ const LoginFromGoogle = () => {
                     {error}
                 </p>
             ) : null}
+            <br />
             <GoogleLogin
                 clientId="771025381810-tbtrkiste2aphi9fd25dol6h6pfvd0vj.apps.googleusercontent.com"
-                buttonText="Login"
+                buttonText="Login with Google"
                 onSuccess={responseSuccessGoogle}
                 onFailure={responseErrorGoogle}
                 cookiePolicy={'single_host_origin'}
