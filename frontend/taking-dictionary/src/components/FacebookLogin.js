@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
-import { GoogleLogin } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
 
-const LoginFromGoogle = () => {
+const LoginFromFacebook = () => {
     const [error, setError] = useState('');
     const [token, setToken] = useState(() => {
         const localData = localStorage.getItem('token');
@@ -12,12 +12,16 @@ const LoginFromGoogle = () => {
     useEffect(() => {
         localStorage.setItem('token', JSON.stringify(token));
     }, [token]);
-    const responseSuccessGoogle = (response) => {
+
+    const responseFacebook = (response) => {
         console.log(response);
         Axios({
             method: 'POST',
-            url: 'http://localhost:5000/api/v1/googlelogin',
-            data: { tokenId: response.tokenId },
+            url: 'http://localhost:5000/api/v1/facebooklogin',
+            data: {
+                accessToken: response.accessToken,
+                userID: response.userID,
+            },
         })
             .then((result) => {
                 setToken(result.data.token);
@@ -27,10 +31,6 @@ const LoginFromGoogle = () => {
                 setError(err.response.data.message);
             });
     };
-    const responseErrorGoogle = (response) => {
-        console.log('error');
-    };
-
     return (
         <div>
             {error ? (
@@ -38,15 +38,13 @@ const LoginFromGoogle = () => {
                     {error}
                 </p>
             ) : null}
-            <GoogleLogin
-                clientId="771025381810-tbtrkiste2aphi9fd25dol6h6pfvd0vj.apps.googleusercontent.com"
-                buttonText="Login"
-                onSuccess={responseSuccessGoogle}
-                onFailure={responseErrorGoogle}
-                cookiePolicy={'single_host_origin'}
+            <FacebookLogin
+                appId="993868381428713"
+                autoLoad={false}
+                callback={responseFacebook}
             />
         </div>
     );
 };
 
-export default LoginFromGoogle;
+export default LoginFromFacebook;
