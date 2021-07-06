@@ -4,23 +4,30 @@ import LoginFromGoogle from './GoogleLogin';
 import LoginFromFacebook from './FacebookLogin';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [token, setToken] = useState(() => {
         const localData = localStorage.getItem('token');
         return localData ? JSON.parse(localData) : '';
     });
     const [isLoggedIn, setLogin] = useState(false);
-
+    const [values, setValues] = useState({
+        email: '',
+        password: '',
+    });
+    const handleChange = (event) => {
+        setValues({
+            ...values,
+            [event.target.name]: event.target.value,
+        });
+    };
     useEffect(() => {
         localStorage.setItem('token', JSON.stringify(token));
     }, [token]);
     const Login = (e) => {
         e.preventDefault();
         Axios.post('http://localhost:5000/api/v1/login', {
-            email: email,
-            password: password,
+            email: values.email,
+            password: values.password,
         })
             .then((response) => {
                 setToken(response.data.token);
@@ -29,6 +36,7 @@ const Login = () => {
             })
             .catch((err) => {
                 setError(err.response.data.message);
+                console.log(err);
             });
     };
     if (isLoggedIn) {
@@ -54,9 +62,8 @@ const Login = () => {
                         id="exampleInputEmail1"
                         aria-describedby="emailHelp"
                         required
-                        onChange={(e) => {
-                            setEmail(e.target.value);
-                        }}
+                        onChange={handleChange}
+                        name="email"
                     />
                 </div>
                 <div className="mb-3">
@@ -70,10 +77,9 @@ const Login = () => {
                         type="password"
                         className="form-control"
                         id="exampleInputPassword1"
-                        onChange={(e) => {
-                            setPassword(e.target.value);
-                        }}
+                        onChange={handleChange}
                         required
+                        name="password"
                     />
                 </div>
                 <button type="submit" className="btn btn-primary">
