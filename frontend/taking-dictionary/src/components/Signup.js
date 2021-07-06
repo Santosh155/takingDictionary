@@ -34,6 +34,10 @@ const Signup = () => {
                 console.log(err.response.data.message);
             });
     };
+    const tokenFromStorage = JSON.parse(localStorage.getItem('token'));
+    if (tokenFromStorage !== null && tokenFromStorage.length >= 10) {
+        return window.location.assign('/profile');
+    }
     return (
         <div className="container" style={{ width: '40%', marginTop: '40px' }}>
             {/* {error ? (

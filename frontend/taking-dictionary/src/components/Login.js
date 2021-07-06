@@ -9,7 +9,6 @@ const Login = () => {
         const localData = localStorage.getItem('token');
         return localData ? JSON.parse(localData) : '';
     });
-    const [isLoggedIn, setLogin] = useState(false);
     const [values, setValues] = useState({
         email: '',
         password: '',
@@ -31,7 +30,6 @@ const Login = () => {
         })
             .then((response) => {
                 setToken(response.data.token);
-                setLogin(true);
                 window.location.assign('/profile');
             })
             .catch((err) => {
@@ -39,8 +37,8 @@ const Login = () => {
                 console.log(err);
             });
     };
-    if (isLoggedIn) {
-        console.log('Redirecting..');
+    const tokenFromStorage = JSON.parse(localStorage.getItem('token'));
+    if (tokenFromStorage !== null && tokenFromStorage.length >= 10) {
         return window.location.assign('/profile');
     }
 
