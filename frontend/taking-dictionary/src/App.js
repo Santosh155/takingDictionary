@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import ProtectedRoute from './ProtectedRoute';
@@ -10,6 +10,7 @@ import Contact from './components/Contact';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Profile from './components/Profile';
+import NotFound from './components/NotFound';
 
 function App() {
     console.log(localStorage.getItem('token'));
@@ -26,24 +27,28 @@ function App() {
         <Router>
             <div className="App">
                 <Header isAuth={isAuth} />
-                <Route
-                    path="/"
-                    exact
-                    render={(props) => (
-                        <>
-                            <Dictionary />
-                        </>
-                    )}
-                />
-                <Route path="/about" component={About} />
-                <Route path="/contact" component={Contact} />
-                <Route path="/login" component={Login} />
-                <Route path="/register" component={Signup} />
-                <ProtectedRoute
-                    path="/profile"
-                    component={Profile}
-                    isAuth={isAuth}
-                />
+                <Switch>
+                    <Route
+                        path="/"
+                        exact
+                        render={(props) => (
+                            <>
+                                <Dictionary />
+                            </>
+                        )}
+                    />
+
+                    <Route path="/about" component={About} />
+                    <Route path="/contact" component={Contact} />
+                    <Route path="/login" component={Login} />
+                    <Route path="/register" component={Signup} />
+                    <ProtectedRoute
+                        path="/profile"
+                        component={Profile}
+                        isAuth={isAuth}
+                    />
+                    <Route component={NotFound} />
+                </Switch>
                 <Footer />
             </div>
         </Router>
